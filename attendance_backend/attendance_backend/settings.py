@@ -160,3 +160,7 @@ SIMPLE_JWT = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://attendance-portal-w0vn.onrender.com/"
+]
