@@ -6,7 +6,7 @@ urlpatterns = [
     path('', admin.site.urls),
 
     # API routes (important to keep above)
-    path('api/', include('attendance.urls')),
+    path('', include('attendance.urls')),
 ]
 
 # React frontend catch-all (LAST)

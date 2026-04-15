@@ -7,6 +7,13 @@ from .models import Attendance, Leave
 from .serializer import AttendanceSerializer, LeaveSerializer
 from rest_framework import status
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class MyTokenObtainPairView(TokenObtainPairView):
+    pass
 
 @csrf_exempt
 @api_view(['POST'])
