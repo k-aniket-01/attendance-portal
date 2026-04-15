@@ -6,7 +6,9 @@ from django.utils.timezone import now
 from .models import Attendance, Leave
 from .serializer import AttendanceSerializer, LeaveSerializer
 from rest_framework import status
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def check_in(request):
@@ -18,6 +20,7 @@ def check_in(request):
     Attendance.objects.create(user=user, check_in=now())
     return Response({"message":"Checked in successfully"})
 
+@csrf_exempt
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def check_out(request):
@@ -37,6 +40,7 @@ def check_out(request):
 
     return Response({"message":"Checkout successful"})
 
+@csrf_exempt
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def timesheet(request):
@@ -44,6 +48,7 @@ def timesheet(request):
     serializer = AttendanceSerializer(data, many=True)
     return Response(serializer.data)
 
+@csrf_exempt
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def apply_leave(request):
@@ -53,6 +58,7 @@ def apply_leave(request):
         return Response(serializer.data)
     return Response(serializer.errors)
 
+@csrf_exempt
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_leaves(request):
