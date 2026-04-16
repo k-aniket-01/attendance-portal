@@ -3,13 +3,11 @@ from django.urls import path, include, re_path
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    path('', admin.site.urls),
-
-    # API routes (important to keep above)
+    path('admin/', admin.site.urls),           
     path('', include('attendance.urls')),
 ]
 
-# React frontend catch-all (LAST)
+# React catch-all — must be last
 urlpatterns += [
     re_path(r'^.*$', TemplateView.as_view(template_name='index.html')),
 ]
