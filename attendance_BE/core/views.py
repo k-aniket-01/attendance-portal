@@ -4,6 +4,22 @@ from rest_framework.response import Response
 from django.utils.timezone import now
 from .models import Attendance
 from .serializers import AttendanceSerializer
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("""
+        <h1>🚀 Attendance Backend is Live</h1>
+
+        <h2>🔗 Admin Panel</h2>
+        <a href="/admin/">Go to Admin Panel</a>
+
+        <h2>🔐 Test Credentials</h2>
+        <p><b>Username:</b> admin</p>
+        <p><b>Password:</b> admin</p>
+
+        <br><br>
+        <p>👉 API Base URL: /api/</p>
+    """)
 
 # ✅ Check-in
 @api_view(['POST'])
