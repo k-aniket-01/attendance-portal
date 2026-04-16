@@ -6,16 +6,16 @@ function Leave() {
   const [form, setForm] = useState({
     start_date: "",
     end_date: "",
-    leave_type: "",
+    leave_type: "SICK", // ✅ default
     reason: "",
   });
 
   const handleSubmit = async () => {
     try {
-      await API.post("/api/leave/", form);
+      await API.post("/api/apply-leave/", form); // ✅ FIXED
       alert("Leave applied!");
-    } catch {
-      alert("Error submitting leave");
+    } catch (err) {
+      alert(err.response?.data || "Error submitting leave");
     }
   };
 
@@ -25,10 +25,36 @@ function Leave() {
       <div className="container">
         <h2>Apply Leave</h2>
 
-        <input type="date" onChange={(e) => setForm({ ...form, start_date: e.target.value })} />
-        <input type="date" onChange={(e) => setForm({ ...form, end_date: e.target.value })} />
-        <input placeholder="Leave Type" onChange={(e) => setForm({ ...form, leave_type: e.target.value })} />
-        <textarea placeholder="Reason" onChange={(e) => setForm({ ...form, reason: e.target.value })}></textarea>
+        <input
+          type="date"
+          onChange={(e) =>
+            setForm({ ...form, start_date: e.target.value })
+          }
+        />
+
+        <input
+          type="date"
+          onChange={(e) =>
+            setForm({ ...form, end_date: e.target.value })
+          }
+        />
+
+        {/* ✅ FIXED: dropdown instead of text */}
+        <select
+          onChange={(e) =>
+            setForm({ ...form, leave_type: e.target.value })
+          }
+        >
+          <option value="SICK">Sick</option>
+          <option value="CASUAL">Casual</option>
+        </select>
+
+        <textarea
+          placeholder="Reason"
+          onChange={(e) =>
+            setForm({ ...form, reason: e.target.value })
+          }
+        ></textarea>
 
         <button onClick={handleSubmit}>Submit</button>
       </div>

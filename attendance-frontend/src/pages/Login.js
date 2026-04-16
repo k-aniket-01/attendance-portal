@@ -15,9 +15,12 @@ function Login() {
       });
 
       localStorage.setItem("token", res.data.access);
+
+      alert("Login successful");
+
       navigate("/dashboard");
     } catch (err) {
-      alert("Invalid credentials");
+      alert(err.response?.data?.detail || "Invalid credentials");
     }
   };
 
@@ -25,8 +28,18 @@ function Login() {
     <div className="container">
       <h2>Login</h2>
 
-      <input placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
-      <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+      <input
+        placeholder="Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
 
       <button onClick={handleLogin}>Login</button>
     </div>
